@@ -1,17 +1,21 @@
 ---
-import Base from "../layouts/Base.astro";
+import Base from "../../layouts/Base.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog"))
-  .filter((p) => !p.data.draft)
-  .sort(
-    (a, b) =>
-      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
-  );
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((p) => ({
+    params: { slug: p.slug },
+    props: { post: p },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
 ---
 
-<Base title="shanth.me">
-  <section class="terminal-window terminal-window--home">
+<Base title={post.data.title} description={post.data.description}>
+  <section class="terminal-window">
     <header class="terminal-window__header">
       <div class="terminal-window__dots">
         <span aria-hidden="true" class="terminal-window__dot" />
@@ -49,16 +53,8 @@ const posts = (await getCollection("blog"))
       </nav>
     </header>
     <article class="terminal-window__body">
-      <h1>Scribbles</h1>
-      <ul class="terminal-window__list">
-        {posts.map((p) => (
-          <li>
-            <span class="terminal-window__bullet">•</span>
-            <a href={`/blog/${p.slug}/`}>{p.data.title}</a>
-            <small>{new Date(p.data.pubDate).toDateString()}</small>
-          </li>
-        ))}
-      </ul>
+      <h1>{post.data.title}</h1>
+      <Content />
     </article>
   </section>
 </Base>

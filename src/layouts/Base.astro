@@ -1,0 +1,154 @@
+---
+const { title = "shanth.me", description = "Scribbles", fontClass = "" } = Astro.props;
+---
+<html lang="en" class={fontClass}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne+Mono&display=swap"
+      rel="stylesheet"
+    >
+    <style>
+      html {
+        font-family: "DM Mono", "Syne Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .codey {
+        font-family: "DM Mono", "Syne Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    --maxw: 72ch;
+  }
+  .container {
+    margin: 4rem auto;
+    padding: 0 1rem;
+    max-width: var(--maxw);
+    line-height: 1.65;
+  }
+  :global(.terminal-window) {
+    position: relative;
+    margin-top: 3rem;
+    padding: 2rem 1.75rem 1.75rem;
+    background: #fefaf0;
+    border: 2px solid #222;
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.16);
+  }
+  :global(.terminal-window__header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: -2rem -1.75rem 1.5rem;
+    padding: 0.75rem 1.75rem 0.75rem 0.75rem;
+    border-bottom: 2px solid #222;
+  }
+  :global(.terminal-window__dots) {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  :global(.terminal-window__dot) {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: 2px solid #222;
+    background: #222;
+    flex-shrink: 0;
+  }
+  :global(.terminal-window__social) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: auto;
+  }
+  :global(.terminal-window__social-link) {
+    width: 1.45rem;
+    height: 1.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    border-bottom: none;
+  }
+  :global(.terminal-window__social-link svg) {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+  :global(.terminal-window__body) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  :global(.terminal-window__list) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  :global(.terminal-window__list li) {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  :global(.terminal-window__bullet) {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  :global(.terminal-window__list small) {
+    font-size: 0.85rem;
+    color: #444;
+  }
+  :global(.terminal-window__social-link:hover) {
+    opacity: 0.7;
+  }
+  :global(.sr-only) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  body {
+    background: #fff;
+    color: #111;
+  }
+  h1,
+  h2 {
+    font-family: "Syne Mono", "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: -0.08em;
+  }
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  a:hover {
+    opacity: 0.7;
+  }
+  article :is(h1, h2, h3) {
+    margin-top: 2.2rem;
+  }
+  article p,
+  li {
+    font-size: 1.05rem;
+  }
+</style>
