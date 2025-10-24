@@ -44,7 +44,7 @@ I was surprised at the subtle issues in implementing a "simple library to execut
 
 First, it seems the only way to communicate with the "guest" was via stdin/stdout or traditional files (not fifo, unix domain socket, etc).  Next, you need to come up with on-wire protocol (jupyter gives this for free).  Then, in the guest you execute the generated code and capture its stdout in a string (to ship back to the LLM), but that code also calls back to the host using stdout (but that has to use the guest-level stdout)!
 
-I was also surprised by how easy it is to handle statefulness:  exec(compile(code, "<cell>", "exec"), G, G)
+I was also surprised by how easy it is to handle statefulness:  exec(compile(code, "<cell>", "exec"), G, G).  (With session scoped globals in 'G', variables persist across code cells.)
 
 ## Where its at
 
